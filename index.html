@@ -303,11 +303,16 @@
 "风险管控要更加坚决果断，强化重点人员网格化管理，综合区域协查信息和大数据综合研判，快速主动开展密接、次密接等风险人员排查管控。"]
     
         const get = () => {
-            const s = sentence.slice()
+            let s = sentence.slice()
             let result = "";
             let count = document.getElementById("count").value;
-            while (result.length < count){
+            let test = 0
+            while (result.length < count && test < 10){
                 let index = Math.floor(Math.random() * (s.length));
+                if((result+s[index]).length > count){
+                    test++;
+                    continue;
+                }
                 result += s[index];
                 s.splice(index, 1);
             }
@@ -315,13 +320,13 @@
         }
 
         const copy = () => {
-            const text = document.getElementById("generator").innerHTML
-            navigator.clipboard.writeText(text)
+            const text = document.getElementById("generator").innerHTML;
+            navigator.clipboard.writeText(text);
                 .then(() => {
-                    alert('毫不动摇坚持动态清零')
+                    alert('毫不动摇坚持动态清零');
                 })
                 .catch(() => {
-                    alert('接上级主管部门指示暂停复制服务')
+                    alert('接上级主管部门指示暂停复制服务');
                 })
         }
         

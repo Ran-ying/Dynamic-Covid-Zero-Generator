@@ -285,7 +285,7 @@ function get($count){
     global $sentence;
     $result = "";
     $test = 0;
-    while (strlen($result)/3 < $count && $test < $count){
+    while (strlen($result)/3 < $count && $test < 10){
         $index = intval(rand(0,count($sentence)-1));
         // var_dump($index);
         if(strlen($result.$sentence[$index])/3>$count) {

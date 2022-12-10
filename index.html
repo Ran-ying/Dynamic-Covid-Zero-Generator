@@ -313,6 +313,17 @@
             }
             document.getElementById("generator").innerHTML = result;
         }
+
+        const copy = () => {
+            const text = document.getElementById("generator").innerHTML
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    alert('毫不动摇坚持动态清零')
+                })
+                .catch(() => {
+                    alert('接上级主管部门指示暂停复制服务')
+                })
+        }
         
     </script>
 </head>
@@ -324,7 +335,7 @@
     <input id="count" placeholder="字数" value="140">
     <div class="btn-group">
         <button onclick="get()">Get</button>
-        <button onclick="alert('毫不动摇坚持动态清零')">Copy</button>
+        <button onclick="copy()">Copy</button>
     </div>
     <div id="generator"></div>
 </body>

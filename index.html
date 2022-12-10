@@ -5,8 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Covid Zero Generator</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <style>
+        body {
+            max-width: 768px;
+            margin: auto;
+            padding: 4em;
+        }
+        .btn-group {
+            display: flex;
+        }
+
+        .btn-group > * + * {
+            margin-left: 0.5em;
+        }
+    </style>
     <script>
-        const sentence = Array(
+        const sentence = [
 "2022年第一季度，美国实际GDP按年率计算下降1.4%，欧元区GDP环比增长仅为0.3%。",
 "中国的抗疫实践表明，坚持‘动态清零’是我们14亿多人口大国当前务必守住的疫情防线，是对人民至上、生命至上理念最好的践行，也是对国际抗疫的最大的贡献。",
 "“动态清零”不是追求“零感染”，而是我国在“外防输入、内防反弹”总策略下常态化疫情防控的总方针，它要求做到对病例及早发现、快速处置、精准管控、有效救治，使疫情不构成连续性社区传播，保障人民的生命健康和经济社会发展。",
@@ -285,16 +300,15 @@
 "随着疫情的持续肆虐，一些国家以保经济为由放松了疫情管控。",
 "随着疫情防控的形势在变、任务在变，工作要求也在变，需要进一步提高疫情突发的预判、预测、预警能力。",
 "面对疫情反复冲击，有人心生“松口气、歇歇脚、等等看”的想法，防控工作失之于宽、失之于松；有的国家干脆“躺平”放任病毒感染，导致感染和病亡人数高居不下。",
-"风险管控要更加坚决果断，强化重点人员网格化管理，综合区域协查信息和大数据综合研判，快速主动开展密接、次密接等风险人员排查管控。",)
+"风险管控要更加坚决果断，强化重点人员网格化管理，综合区域协查信息和大数据综合研判，快速主动开展密接、次密接等风险人员排查管控。"]
     
-        var get = ()=>{
-            let s = [...sentence]
+        const get = () => {
             let result = "";
             let count = document.getElementById("count").value;
             while (result.length < count){
-                let index = Math.floor(Math.random()*(s.length));
-                result += s[index];
-                s.splice(index,1);
+                let index = Math.floor(Math.random() * (sentence.length));
+                result += sentence[index];
+                sentence.splice(index, 1);
             }
             document.getElementById("generator").innerHTML = result;
         }
@@ -302,9 +316,15 @@
     </script>
 </head>
 <body>
-    <h1>Dynamic Covid Zero Generator</h1>
-    <div>毫不动摇坚持“动态清零”总方针，坚决同一切歪曲、怀疑、否定我国防疫方针政策的言行作斗争。</div>
-    <input id="count" placeholder="字数" value="140"><button onclick="get()">Get</button><button onclick="alert('毫不动摇坚持动态清零')">Copy</button>
+    <hgroup>
+        <h1>Dynamic Covid Zero Generator</h1>
+        <p>毫不动摇坚持“动态清零”总方针，坚决同一切歪曲、怀疑、否定我国防疫方针政策的言行作斗争。</p>
+    </hgroup>
+    <input id="count" placeholder="字数" value="140">
+    <div class="btn-group">
+        <button onclick="get()">Get</button>
+        <button onclick="alert('毫不动摇坚持动态清零')">Copy</button>
+    </div>
     <div id="generator"></div>
 </body>
 </html>

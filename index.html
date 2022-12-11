@@ -305,7 +305,7 @@
         const get = () => {
             let s = sentence.slice()
             let result = "";
-            let count = document.getElementById("count").value;
+            let count = eval(document.getElementById("count").value);
             let test = 0
             while (result.length < count && test < 10){
                 let index = Math.floor(Math.random() * (s.length));

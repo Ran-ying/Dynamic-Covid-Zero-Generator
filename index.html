@@ -311,6 +311,9 @@
             let s = sentence.slice();
             let result = "";
             let count = eval(document.getElementById("count").value);
+            let allCount = 0;
+            s.forEach((value)=>{allCount += value.length});
+            if(count > allCount) count = allCount;
             let test = 0;
             while (result.length < count && test < 10){
                 let index = Math.floor(Math.random() * (s.length));

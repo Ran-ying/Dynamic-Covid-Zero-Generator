@@ -321,7 +321,7 @@
                 result += s[index];
                 s.splice(index, 1);
             }
-            document.getElementById("generator").innerHTML = result;
+            document.getElementById("generator").innerHTML = `【 ${result.length} 字】${result}`;
             if(canCopy) copy(result);
         }
 
@@ -342,7 +342,7 @@
         window.onload = ()=>{
             setTimeout(()=>{
                 document.getElementById("count").value = 140;
-            },3000);
+            },0);
         };
     </script>
 </head>

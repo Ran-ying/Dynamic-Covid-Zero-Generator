@@ -7,6 +7,11 @@
     <title>Dynamic Covid Zero Generator</title>
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
     <style>
+        html {
+            height: 100%;
+            background-image: url('background.jpg');
+            background-size: cover;
+        }
         body {
             max-width: 768px;
             margin: auto;
@@ -301,12 +306,12 @@
 "随着疫情防控的形势在变、任务在变，工作要求也在变，需要进一步提高疫情突发的预判、预测、预警能力。",
 "面对疫情反复冲击，有人心生“松口气、歇歇脚、等等看”的想法，防控工作失之于宽、失之于松；有的国家干脆“躺平”放任病毒感染，导致感染和病亡人数高居不下。",
 "风险管控要更加坚决果断，强化重点人员网格化管理，综合区域协查信息和大数据综合研判，快速主动开展密接、次密接等风险人员排查管控。"]
-    
+        var canCopy = true;
         const get = () => {
-            let s = sentence.slice()
+            let s = sentence.slice();
             let result = "";
             let count = eval(document.getElementById("count").value);
-            let test = 0
+            let test = 0;
             while (result.length < count && test < 10){
                 let index = Math.floor(Math.random() * (s.length));
                 if((result+s[index]).length > count){
@@ -317,31 +322,42 @@
                 s.splice(index, 1);
             }
             document.getElementById("generator").innerHTML = result;
+            if(canCopy) copy(result);
         }
 
-        const copy = () => {
-            const text = document.getElementById("generator").innerHTML;
+        const copy = (text) => {
             navigator.clipboard.writeText(text)
                 .then(() => {
-                    alert('毫不动摇坚持动态清零');
+                    //需对文本进行核酸检测并让其扫描剪贴板的场所码
+                    //getE("button").innerHTML = "复制成功，再次生成"
+                    //alert('毫不动摇坚持动态清零');
                 })
                 .catch(() => {
                     alert('接上级主管部门指示暂停复制服务');
+                    canCopy = false;
+                    document.getElementById("button").innerHTML = "生成";
+                    return false;
                 })
         }
-        
+        window.onload = ()=>{
+            setTimeout(()=>{
+                document.getElementById("count").value = 140;
+            },3000);
+        };
     </script>
 </head>
 <body>
     <hgroup>
-        <h1>Dynamic Covid Zero Generator</h1>
-        <p>毫不动摇坚持“动态清零”总方针，坚决同一切歪曲、怀疑、否定我国防疫方针政策的言行作斗争。</p>
+        <h1 style="color: rgb(170,0,0);">
+            <!-- Dynamic Covid Zero Generator -->
+            毫不动摇坚持动态清零生成器
+        </h1>
+        <p style="color: rgb(253,208,0);">毫不动摇坚持“动态清零”总方针，坚决同一切歪曲、怀疑、否定我国防疫方针政策的言行作斗争。</p>
     </hgroup>
-    <input id="count" placeholder="字数" value="140">
     <div class="btn-group">
-        <button onclick="get()">Get</button>
-        <button onclick="copy()">Copy</button>
+        <input id="count" style="color: rgb(180,0,0);" placeholder="字数">
+        <button id="button" style="background-color: rgb(180,0,0);"  onclick="get()">生成且复制</button>
     </div>
-    <div id="generator"></div>
+    <div style="color: rgb(180,0,0);" id="generator"></div>
 </body>
 </html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱国鉴定</title>
+    <!--是中国人就用中文变量名-->
+    <script>
+        let 题库 = [
+            { 
+                描述: "犯我中华者虽远必究！", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "美国人是纯粹的恶。", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "中文是世间最美丽的语言，不会讲中文的外国人都很可怜。", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "欧洲人素质较低不适合实行社会主义制度。", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "欧洲随处可见匍匐着的穷人。", 
+                分数: [-5, -3, 0, 3, 5], },
+            { 
+                描述: "美国三代人努力一百年只为让子孙后代拥有中国籍。", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "给你一个亿，你愿意放弃国籍移民美国。", 
+                分数: [5, 3, 0, -3, -5], 
+            }, 
+            { 
+                描述: "我爱我的国，我的国爱我。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "欧洲发展水平和我们商朝时期差不多。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "没有国家，我什么都不是！", 
+                分数: [-5, -3, 0, 3, 5], }, 
+            { 
+                描述: "美国遍地是灾，难以想象生活在美国的痛苦。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "为中华之崛起而读书！", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "中国是最美丽最强大最自信的国家。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "欧洲人活得没有尊严", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "我认为欧洲文化全是糟粕。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "玩原神对人生大有裨益。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "离地狱太远，离中国太近。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "欧洲不适合人的生存。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }, 
+            { 
+                描述: "美国制造了新冠病毒。", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "北欧的空气浑浊又腐朽。", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "如果在欧洲生活，你会很痛苦。", 
+                分数: [-5, -3, 0, 3, 5], },
+            { 
+                描述: "美国有这么好吗？我看未必！", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "我们八千年发展出了辉煌灿烂的中华文明。", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "我恨美国。", 
+                分数: [-5, -3, 0, 3, 5], 
+            },
+            { 
+                描述: "我爱中国。", 
+                分数: [-5, -3, 0, 3, 5], 
+            }
+        ]
+        //右端点
+        let 测试结果 = {
+            "纯纯的罕见": -0.4,
+            "一般通过鹿人": 0.4,
+            "当代吴京": 1,
+        }
+        let 当前题目序号 = 0
+        let 初始化 = () => {
+            document.querySelector('.进度').max = 题库.length
+            加载题目(当前题目序号)
+        }
+        let 加载题目 = (题目序号) => {
+            document.querySelector('.进度').value = 题目序号
+            document.querySelector('.题目描述').innerHTML = 题库[题目序号].描述
+        }
+        let 选择 = (序号) => {
+            题库[当前题目序号]["选择"] = 题库[当前题目序号].分数[序号]
+            if (++当前题目序号 == 题库.length) {
+                加载结果()
+            }
+            else {
+                加载题目(当前题目序号)
+            }
+        }
+        let 加载结果 = () => {
+            document.querySelector('.测试容器').style.display = 'none'
+            document.querySelector('.结果容器').style.display = 'block'
+            let 总结 = 题库.reduce((总分, 当前) => {
+                return {
+                    "当前分数": 总分.当前分数 + 当前.选择,
+                    "最大分数": 总分.最大分数 + Math.max(...当前.分数),
+                    "最小分数": 总分.最小分数 + Math.max(...当前.分数)
+                }
+            }, { "当前分数": 0, "最大分数": 0, "最小分数": 0 })
+            let 评价 = 总结.当前分数 / 总结.最大分数;
+            for (let 结果 in 测试结果) {
+                if (评价 <= 测试结果[结果]) {
+                    window['结果'].innerHTML = `一眼丁真，鉴定为<div style="font-size: 2em">${结果}</div>`;
+                    break;
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 24px;
+            color: rgb(170,0,0);
+            background-color: rgb(253,208,0);
+        }
+        .圆{
+            display: inline-block;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+
+        .大圆{
+            width: 50px;
+            height: 50px;
+        }
+        .大圆::after {
+            text-align: center;
+            width: 50px;
+            line-height: 50px;
+            display: inline-block;
+        }
+
+        .中圆{
+            width: 40px;
+            height: 40px;
+        }
+
+        .小圆{
+            width: 30px;
+            height: 30px;
+        }
+
+        .负{
+            color: red;
+        }
+        .负:hover {
+            background-color: red;
+        }
+        .大圆.负::after {
+            content: "不符合";
+        }
+        .正{
+            color: green;
+        }
+        .正:hover {
+            background-color: green;
+        }
+        .大圆.正::after {
+            content: "符合";
+        }
+        .平 {
+            color: gray;
+        }
+        .平:hover {
+            background-color: gray;
+        }
+
+        .分数容器 {
+            display: flex;
+            align-items: center;
+            justify-content:space-around;
+        }
+        .头部 {
+            text-align: center;
+        }
+        .题目描述 {
+            margin: 24px;
+            font-size: 20px;
+            height: 3em;
+        }
+        .结果容器 {
+            display: none;
+            text-align: center;
+        }
+        .进度 {
+            width: 100%;
+        }
+    </style>
+</head>
+<body onload="初始化()">
+    <div>
+        <div class="头部">
+            <h1>爱国鉴定</h1>
+        </div>
+        <div class="测试容器">
+            <progress class="进度" value="0"></progress>
+            请选择描述是否符合你的认知。
+            <div class="题目描述">
+
+            </div>
+            <div class="分数容器">
+                <div class="圆 大圆 负" onclick="选择(0)"></div>
+                <div class="圆 中圆 负" onclick="选择(1)"></div>
+                <div class="圆 小圆 平" onclick="选择(2)"></div>
+                <div class="圆 中圆 正" onclick="选择(3)"></div>
+                <div class="圆 大圆 正" onclick="选择(4)"></div>
+            </div>
+        </div>
+        <div class="结果容器">
+            <div id="结果"></div>
+            <div onclick="location.href
+             = location.href">再来一次</div>
+        </div>
+    </div>
+</body>
+</html>
